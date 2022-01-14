@@ -1,15 +1,15 @@
 {
   "name": "kulbot-vm",
-  "version": "0.0.1",
-  "description": "Virtual Machine for kulbot",
+  "version": "0.0.3",
+  "description": "Virtual Machine for Suny",
   "author": "Massachusetts Institute of Technology",
   "license": "BSD-3-Clause",
-  "homepage": "https://github.com/Coderkul2020/kulbot-vms#readme",
+  "homepage": "https://github.com/Coderkul2020/kulbot-vm#readme",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Coderkul2020/kulbot-vms.git"
+    "url": "git+ssh://git@github.com/Coderkul2020/kulbot-vm.git"
   },
-  "main": "./dist/node/kulbot-vms.js",
+  "main": "./dist/node/kulbot-vm.js",
   "browser": "./src/index.js",
   "scripts": {
     "build": "npm run docs && webpack --progress --colors --bail",
@@ -71,8 +71,8 @@
     "jsdoc": "^3.6.2",
     "json": "^9.0.4",
     "lodash.defaultsdeep": "4.6.1",
-    "kulbot-block": "0.0.1",
-    "kulbot-l10n": "0.1.0",
+    "kulbot-block": "0.0.2",
+    "suny-l10n": "0.1.0",
     "pngjs": "^3.3.2",
     "scratch-audio": "latest",
     "scratch-render": "latest",

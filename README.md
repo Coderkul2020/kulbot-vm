@@ -1,5 +1,5 @@
-# kulbot-vms
-![](https://img.shields.io/travis/com/Coderkul2020/kulbot-vms) ![](https://img.shields.io/github/license/Coderkul2020/kulbot-vms)
+# kulbot-vm
+![](https://img.shields.io/travis/com/Coderkul2020/kulbot-vm) ![](https://img.shields.io/github/license/Coderkul2020/kulbot-vm)
 
 ## Getting Start
 

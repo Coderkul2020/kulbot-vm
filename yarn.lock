@@ -5127,6 +5127,14 @@
   dependencies:
     "graceful-fs" "^4.1.9"
 
+"kulbot-block@0.0.2":
+  "integrity" "sha512-muVwnfS62aI2KJ6CcsvD8T+gcyMtbEySi4lmC7eZikEE97tyAu6EdAmY9r8wJogwLNcpmJaTvNcXuE6qK6Rfsg=="
+  "resolved" "https://registry.npmjs.org/kulbot-block/-/kulbot-block-0.0.2.tgz"
+  "version" "0.0.2"
+  dependencies:
+    "exports-loader" "0.6.3"
+    "imports-loader" "0.6.5"
+
 "lcov-parse@^1.0.0":
   "integrity" "sha1-6w1GtUER68VhrLTECO+TY73I9+A="
   "resolved" "https://registry.npmjs.org/lcov-parse/-/lcov-parse-1.0.0.tgz"
@@ -7832,17 +7840,9 @@
   "resolved" "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz"
   "version" "3.1.1"
 
-"kulbot-block@0.0.3":
-  "integrity" "sha512-11HHklNoKxUn/vylURQifw0s3GAELEYvXY+uA5f5TiI7tkDZwDUIy3dCc5Yh7sz285ik652TJH9iBtYLSVo66g=="
-  "resolved" "https://registry.npmjs.org/kulbot-block/-/kulbot-block-0.0.3.tgz"
-  "version" "0.0.3"
-  dependencies:
-    "exports-loader" "0.6.3"
-    "imports-loader" "0.6.5"
-
-"kulbot-l10n@0.1.0":
+"suny-l10n@0.1.0":
   "integrity" "sha512-Uiuy2BWBFp30qRtCDBYKGntl43VN1DUjrVvHMJ49BqPzJB7tco7haHfmHPsDctPP8yjXMDvosvXWeQzNPqugaw=="
-  "resolved" "https://registry.npmjs.org/kulbot-l10n/-/kulbot-l10n-0.1.0.tgz"
+  "resolved" "https://registry.npmjs.org/suny-l10n/-/suny-l10n-0.1.0.tgz"
   "version" "0.1.0"
   dependencies:
     "@babel/cli" "^7.1.2"
