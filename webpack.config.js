@@ -44,8 +44,8 @@ module.exports = [
     defaultsDeep({}, base, {
         target: 'web',
         entry: {
-            'kulbot-vm': './src/index.js',
-            'kulbot-vm.min': './src/index.js'
+            'suny-vm': './src/index.js',
+            'suny-vm.min': './src/index.js'
         },
         output: {
             libraryTarget: 'umd',
@@ -64,7 +64,7 @@ module.exports = [
     defaultsDeep({}, base, {
         target: 'node',
         entry: {
-            'kulbot-vm': './src/index.js'
+            'suny-vm': './src/index.js'
         },
         output: {
             libraryTarget: 'commonjs2',

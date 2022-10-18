@@ -1,8 +1,8 @@
-# kulbot-vm
-![](https://img.shields.io/travis/com/Coderkul2020/kulbot-vm) ![](https://img.shields.io/github/license/Coderkul2020/kulbot-vm)
+# suny-vm
+![](https://img.shields.io/travis/com/lamsd/suny-vm) ![](https://img.shields.io/github/license/lamsd/suny-vm)
 
 ## Getting Start
 
-Visit the wiki: [https://Coderkul2020.github.io/wiki/main](https://Coderkul2020.github.io/wiki/main)
+Visit the wiki: [https://lamsd.github.io/wiki/main](https://lamsd.github.io/wiki/main)
 
-Visit the wiki on gitee (mirror): [https://Coderkul2020.gitee.io/wiki/main](https://Coderkul2020.gitee.io/wiki/main)
+Visit the wiki on gitee (mirror): [https://lamsd.gitee.io/wiki/main](https://lamsd.gitee.io/wiki/main)

@@ -32,7 +32,7 @@ const builtinExtensions = {
 
 const builtinDevices = {
     arduinoUno: () => require('../devices/arduinoUno'),
-    arduinokulbot: () => require('../devices/arduinokulbot'),
+    arduinoSuny: () => require('../devices/arduinoSuny'),
 
 
     // todo transform these to device extension

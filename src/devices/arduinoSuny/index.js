@@ -48,17 +48,43 @@ const Pins = {
     Port8: '8'
 };
 
-const Color_X = {
-    None: '0',
-    Red: '1',
-    Blue: '2',
-    Green: '3',
-    Yellow: '4',
-    Violet: '5',
-    White: '6',
-    Cyb: '7',
+const Gryro = {
+    g1: '1',
+    g2: '2',
+    g3: '3',
+    g4: '4',
+    g5: '5',
+    g6: '6',
+    g7: '7',
+    g8: '8',
+    g9: '9',
+    g10: '10',
+    g11: '11'
 };
 
+const Color_X = {
+    None: '-1',
+    Red: '0',
+    Orange: '1',
+    Yellow: '2',
+    Green: '3',
+    Blue: '4',
+    Indigo: '5',
+    Violet: '6',
+    White: '7',
+    Black: '8',
+};
+
+const Button_Color = {
+    None: '-1',
+    Red: '0',
+    Green: '1',
+    Blue: '2',
+    Yellow: '3',
+    Cyn: '4',
+    Violet: '5',
+    White: '6',
+};
 
 const Level = {
     High: 'HIGH',
@@ -66,14 +92,14 @@ const Level = {
 };
 
 const Level_statue = {
-    ON: "ON",
-    NONE: "NONE"
+    ON: "0",
+    NONE: "1"
 };
 
 const Level_color = {
-    R: "R",
-    G: "G",
-    Y: "Y"
+    R: "0",
+    G: "1",
+    Y: "2"
 };
 
 const Level_IRcolor = {
@@ -138,13 +164,18 @@ const DataType = {
     String: 'STRING'
 };
 
+const Location = {
+    Left: '0',
+    Right: '1',
+};
+
 /**
- * Manage communication with a Arduino Uno peripheral over a OpenBlock Link client socket.
+ * Manage communication with a Arduino Uno peripheral over a Suny Link client socket.
  */
-class Arduinokulbot extends ArduinoPeripheral{
+class ArduinoSuny extends ArduinoPeripheral{
     /**
      * Construct a Arduino communication object.
-     * @param {Runtime} runtime - the OpenBlock runtime
+     * @param {Runtime} runtime - the Suny runtime
      * @param {string} deviceId - the id of the extension
      * @param {string} originalDeviceId - the original id of the peripheral, like xxx_arduinoUno
      */
@@ -154,16 +185,15 @@ class Arduinokulbot extends ArduinoPeripheral{
 }
 
 /**
- * OpenBlock blocks to interact with a Arduino Uno peripheral.
+ * Suny blocks to interact with a Arduino Uno peripheral.
  */
-class OpenBlockArduinokulbotDevice {
+class SunyArduinoSunyDevice {
     /**
      * @return {string} - the ID of this extension.
      */
     static get DEVICE_ID () {
-        return 'arduinokulbot';
+        return 'arduinoSuny';
     }
-
     get PINS_MENU () {
         return [
             {
@@ -201,11 +231,89 @@ class OpenBlockArduinokulbotDevice {
         ];
     }
 
+    get JOYSTICK_MENU () {
+        return [
+            {
+                text: 'X',
+                value: MFB.MF
+            },
+            {
+                text: 'Y',
+                value: MFB.MB
+            }
+        ];
+    }
+
+    get GRYRO_MENU () {
+        return [
+            {
+                text: '1',
+                value: Gryro.g1
+            },
+            {
+                text: '2',
+                value: Gryro.g2
+            },
+            {
+                text: '3',
+                value: Gryro.g3
+            },
+            {
+                text: '4',
+                value: Gryro.g4
+            },
+            {
+                text: '5',
+                value: Gryro.g5
+            },
+            {
+                text: '6',
+                value: Gryro.g6
+            },
+            {
+                text: '7',
+                value: Gryro.g7
+            },
+            {
+                text: '8',
+                value: Gryro.g8
+            }
+            ,
+            {
+                text: '9',
+                value: Gryro.g9
+            }
+            ,
+            {
+                text: '10',
+                value: Gryro.g10
+            }
+            ,
+            {
+                text: '11',
+                value: Gryro.g11
+            }
+        ];
+    }
+
+    get Location () {
+        return [
+            {
+                text: 'Left',
+                value: Location.Left
+            },
+            {
+                text: 'Right',
+                value: Location.Right
+            },
+        ];
+    }
+
     get MODE_MENU () {
         return [
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.modeMenu.input',
+                    id: 'arduinoSuny.modeMenu.input',
                     default: 'input',
                     description: 'label for input pin mode'
                 }),
@@ -213,7 +321,7 @@ class OpenBlockArduinokulbotDevice {
             },
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.modeMenu.output',
+                    id: 'arduinoSuny.modeMenu.output',
                     default: 'output',
                     description: 'label for output pin mode'
                 }),
@@ -221,7 +329,7 @@ class OpenBlockArduinokulbotDevice {
             },
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.modeMenu.inputPullup',
+                    id: 'arduinoSuny.modeMenu.inputPullup',
                     default: 'input-pullup',
                     description: 'label for input-pullup pin mode'
                 }),
@@ -274,20 +382,24 @@ class OpenBlockArduinokulbotDevice {
                 value: Color_X.None
             },
             {
-                text: 'Red',
-                value: Color_X.Red
+                text: 'Orange',
+                value: Color_X.Orange
             },
             {
-                text: 'Blue',
-                value: Color_X.Blue
+                text: 'Yellow',
+                value: Color_X.Yellow
             },
             {
                 text: 'Green',
                 value: Color_X.Green
             },
             {
-                text: 'Yellow',
-                value: Color_X.Yellow
+                text: 'Blue',
+                value: Color_X.Blue
+            },
+            {
+                text: 'Indigo',
+                value: Color_X.Indigo
             },
             {
                 text: 'Violet',
@@ -298,8 +410,46 @@ class OpenBlockArduinokulbotDevice {
                 value: Color_X.White
             },
             {
-                text: 'Cyber',
-                value: Color_X.Cyb
+                text: 'Black',
+                value: Color_X.Black
+            }
+        ];
+    }
+
+
+    get Button_Color () {
+        return [
+            {
+                text: 'None',
+                value: Button_Color.None
+            },
+            {
+                text: 'Red',
+                value: Button_Color.Red
+            },
+            {
+                text: 'Green',
+                value: Button_Color.Green
+            },
+            {
+                text: 'Blue',
+                value: Button_Color.Blue
+            },
+            {
+                text: 'Yellow',
+                value: Button_Color.Yellow
+            },
+            {
+                text: 'Cyn',
+                value: Button_Color.Cyn
+            },
+            {
+                text: 'Violet',
+                value: Button_Color.Violet
+            },
+            {
+                text: 'White',
+                value: Button_Color.White
             }
         ];
     }
@@ -311,7 +461,7 @@ class OpenBlockArduinokulbotDevice {
         return [
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.high',
+                    id: 'arduinoSuny.levelMenu.high',
                     default: 'High',
                     description: 'label for high level'
                 }),
@@ -319,7 +469,7 @@ class OpenBlockArduinokulbotDevice {
             },
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.low',
+                    id: 'arduinoSuny.levelMenu.low',
                     default: 'Low',
                     description: 'label for low level'
                 }),
@@ -332,7 +482,7 @@ class OpenBlockArduinokulbotDevice {
         return [
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.Temp',
+                    id: 'arduinoSuny.levelMenu.Temp',
                     default: 'Temperature (°C)',
                     description: 'label for Temp level'
                 }),
@@ -340,7 +490,7 @@ class OpenBlockArduinokulbotDevice {
             },
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.Hum',
+                    id: 'arduinoSuny.levelMenu.Hum',
                     default: 'Humany (%)',
                     description: 'label for Hum level'
                 }),
@@ -353,7 +503,7 @@ class OpenBlockArduinokulbotDevice {
         return [
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.R',
+                    id: 'arduinoSuny.levelMenu.R',
                     default: "R",
                     description: 'label for red level'
                 }),
@@ -361,7 +511,7 @@ class OpenBlockArduinokulbotDevice {
             },
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.G',
+                    id: 'arduinoSuny.levelMenu.G',
                     default: "G",
                     description: 'label for green level'
                 }),
@@ -369,7 +519,7 @@ class OpenBlockArduinokulbotDevice {
             },
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.B',
+                    id: 'arduinoSuny.levelMenu.B',
                     default: "Y",
                     description: 'label for blue level'
                 }),
@@ -378,13 +528,11 @@ class OpenBlockArduinokulbotDevice {
         ];
     }
 
-
-
     get LEVEL_IRCOLOR () {
         return [
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.Right',
+                    id: 'arduinoSuny.levelMenu.Right',
                     default: "Right",
                     description: 'label for Right level'
                 }),
@@ -392,7 +540,7 @@ class OpenBlockArduinokulbotDevice {
             },
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.Left',
+                    id: 'arduinoSuny.levelMenu.Left',
                     default: "Left",
                     description: 'label for Left level'
                 }),
@@ -400,7 +548,7 @@ class OpenBlockArduinokulbotDevice {
             },
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.All',
+                    id: 'arduinoSuny.levelMenu.All',
                     default: "All",
                     description: 'label for All level'
                 }),
@@ -413,7 +561,7 @@ class OpenBlockArduinokulbotDevice {
         return [
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.m1',
+                    id: 'arduinoSuny.levelMenu.m1',
                     default: 'M1',
                     description: 'label for high level'
                 }),
@@ -421,7 +569,7 @@ class OpenBlockArduinokulbotDevice {
             },
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.m2',
+                    id: 'arduinoSuny.levelMenu.m2',
                     default: 'M2',
                     description: 'label for low level'
                 }),
@@ -434,7 +582,7 @@ class OpenBlockArduinokulbotDevice {
         return [
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.ON',
+                    id: 'arduinoSuny.levelMenu.ON',
                     default: "On",
                     description: 'On of the level'
                 }),
@@ -442,7 +590,7 @@ class OpenBlockArduinokulbotDevice {
             },
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.NONE',
+                    id: 'arduinoSuny.levelMenu.NONE',
                     default: "Off",
                     description: 'None of level'
                 }),
@@ -455,7 +603,7 @@ class OpenBlockArduinokulbotDevice {
         return [
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.MF',
+                    id: 'arduinoSuny.levelMenu.MF',
                     default: 'Front',
                     description: 'move Front of level'
                 }),
@@ -463,7 +611,7 @@ class OpenBlockArduinokulbotDevice {
             },
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.MB',
+                    id: 'arduinoSuny.levelMenu.MB',
                     default: 'Back',
                     description: 'move Back of level'
                 }),
@@ -476,7 +624,7 @@ class OpenBlockArduinokulbotDevice {
         return [
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.CW',
+                    id: 'arduinoSuny.levelMenu.CW',
                     default: 'Right',
                     description: 'move white color of level'
                 }),
@@ -484,7 +632,7 @@ class OpenBlockArduinokulbotDevice {
             },
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.levelMenu.CB',
+                    id: 'arduinoSuny.levelMenu.CB',
                     default: 'Left',
                     description: 'move black color of level'
                 }),
@@ -526,16 +674,16 @@ class OpenBlockArduinokulbotDevice {
         return [
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.eolMenu.warp',
-                    default: 'warp',
+                    id: 'arduinoSuny.eolMenu.warp',
+                    default: 'wrap',
                     description: 'label for warp print'
                 }),
                 value: Eol.Warp
             },
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.eolMenu.noWarp',
-                    default: 'no-warp',
+                    id: 'arduinoSuny.eolMenu.noWarp',
+                    default: 'no-wrap',
                     description: 'label for no warp print'
                 }),
                 value: Eol.NoWarp
@@ -547,7 +695,7 @@ class OpenBlockArduinokulbotDevice {
         return [
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.dataTypeMenu.wholeNumber',
+                    id: 'arduinoSuny.dataTypeMenu.wholeNumber',
                     default: 'whole number',
                     description: 'label for whole number'
                 }),
@@ -555,7 +703,7 @@ class OpenBlockArduinokulbotDevice {
             },
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.dataTypeMenu.decimal',
+                    id: 'arduinoSuny.dataTypeMenu.decimal',
                     default: 'decimal',
                     description: 'label for decimal number'
                 }),
@@ -563,7 +711,7 @@ class OpenBlockArduinokulbotDevice {
             },
             {
                 text: formatMessage({
-                    id: 'arduinokulbot.dataTypeMenu.string',
+                    id: 'arduinoSuny.dataTypeMenu.string',
                     default: 'string',
                     description: 'label for string'
                 }),
@@ -574,18 +722,18 @@ class OpenBlockArduinokulbotDevice {
 
     /**
      * Construct a set of Arduino blocks.
-     * @param {Runtime} runtime - the OpenBlock runtime.
+     * @param {Runtime} runtime - the Suny runtime.
      * @param {string} originalDeviceId - the original id of the peripheral, like xxx_arduinoUno
      */
     constructor (runtime, originalDeviceId) {
         /**
-         * The OpenBlock runtime.
+         * The Suny runtime.
          * @type {Runtime}
          */
         this.runtime = runtime;
 
         // Create a new Arduino uno peripheral instance
-        this._peripheral = new Arduinokulbot(this.runtime, OpenBlockArduinokulbotDevice.DEVICE_ID, originalDeviceId);
+        this._peripheral = new ArduinoSuny(this.runtime, SunyArduinoSunyDevice.DEVICE_ID, originalDeviceId);
     }
 
     /**
@@ -596,8 +744,8 @@ class OpenBlockArduinokulbotDevice {
             {
                 id: 'pin',
                 name: formatMessage({
-                    id: 'arduinokulbot.category.pins',
-                    default: 'Kulbot',
+                    id: 'arduinoSuny.category.pins',
+                    default: 'LED',
                     description: 'The name of the arduino uno device pin category'
                 }),
                 color1: '#4C97FF',
@@ -606,264 +754,130 @@ class OpenBlockArduinokulbotDevice {
 
                 blocks: [
                     {
-                        opcode: 'esp32ledOnOF',
+                        opcode: 'esp32setButtonLed',
                         text: formatMessage({
-                            id: 'arduinokulbot.pins.esp32ledOnOF',
-                            default: 'Led  [LEVEL]',
-                            description: 'arduinokulbot set LED on/off'
+                            id: 'arduinoSuny.pins.esp32setButtonLed',
+                            default: 'Set Button Led: Port [PORT] Color [COLOR]',
+                            description: 'arduinoSuny Set Button Led'
                         }),
                         blockType: BlockType.COMMAND,
                         arguments: {
-                            LEVEL: {
-                                type: ArgumentType.STRING,
-                                menu: 'level',
-                                defaultValue: Level.High
-                            }
-                        }
-                    },
-                    '---',
-                    {
-                        opcode: 'eps32SUltra',
-                        text: formatMessage({
-                            id: 'arduinokulbot.pins.eps32SUltra',
-                            default: 'Unltrasonic [PIN] (cm)',
-                            description: 'arduinokulbot read ultrasonic sensor'
-                        }),
-                        blockType: BlockType.REPORTER,
-                        arguments: {
-                            PIN: {
-                                type: ArgumentType.STRING,
-                                menu: 'digitalPins',
-                                defaultValue: Pins.Port1
-                            }
-                        }
-                    },
-                    '---',
-                    {
-                        opcode: 'eps32STemp',
-                        text: formatMessage({
-                            id: 'arduinokulbot.pins.eps32STemp',
-                            default: 'Temperature [PIN] (°C)',
-                            description: 'arduinokulbot read Temperature sensor'
-                        }),
-                        blockType: BlockType.REPORTER,
-                        arguments: {
-                            PIN: {
-                                type: ArgumentType.STRING,
-                                menu: 'digitalPins',
-                                defaultValue: Pins.Port1
-                            }
-                        }
-                    },
-                    '---',
-                    {
-                        opcode: 'eps32SDHT11',
-                        text: formatMessage({
-                            id: 'arduinokulbot.pins.eps32SDHT11',
-                            default: 'DHT11 [PIN] [FUN]',
-                            description: 'arduinokulbot read Temperature sensor'
-                        }),
-                        blockType: BlockType.REPORTER,
-                        arguments: {
-                            PIN: {
-                                type: ArgumentType.STRING,
-                                menu: 'digitalPins',
-                                defaultValue: Pins.Port1
-                            },
-                            FUN: {
-                                type: ArgumentType.STRING,
-                                menu: 'dht11mode',
-                                defaultValue: Dht11_mode.Temp
-                            }
-                        }
-                    },
-                    '---',
-                    {
-                        opcode: 'eps32SDHT12',
-                        text: formatMessage({
-                            id: 'arduinokulbot.pins.eps32SDHT12',
-                            default: 'DHT12 [PIN] [FUN]',
-                            description: 'arduinokulbot read Temperature sensor'
-                        }),
-                        blockType: BlockType.REPORTER,
-                        arguments: {
-                            PIN: {
-                                type: ArgumentType.STRING,
-                                menu: 'digitalPins',
-                                defaultValue: Pins.Port1
-                            },
-                            FUN: {
-                                type: ArgumentType.STRING,
-                                menu: 'dht11mode',
-                                defaultValue: Dht11_mode.Temp
-                            }
-                        }
-                    },
-                    '---',
-                    {
-                        opcode: 'eps32STouch',
-                        text: formatMessage({
-                            id: 'arduinokulbot.pins.eps32STouch',
-                            default: 'Touch [PIN]',
-                            description: 'arduinokulbot read digital touch sensor'
-                        }),
-                        blockType: BlockType.BOOLEAN,
-                        arguments: {
-                            PIN: {
+                            PORT: {
                                 type: ArgumentType.STRING,
                                 menu: 'digitalPins',
                                 defaultValue: Pins.D0
-                            }
+                            },
+                            COLOR: {
+                                type: ArgumentType.STRING,
+                                menu: 'button_led',
+                                defaultValue: Button_Color.None
+                            },
                         }
                     },
-                    '---',            
+                    '---',
                     {
-                        opcode: 'eps32STouchLed',
+                        opcode: 'esp32setIRLed',
                         text: formatMessage({
-                            id: 'arduinokulbot.pins.eps32STouchLed',
-                            default: 'TouchLED Port [PIN]  color [CLINE]',
-                            description: 'arduinokulbot set IR color pin out'
+                            id: 'arduinoSuny.pins.esp32setIRLed',
+                            default: 'Set IR Led: Port [PORT] Color [COLOR]',
+                            description: 'arduinoSuny Set IR Led'
                         }),
                         blockType: BlockType.COMMAND,
                         arguments: {
-                            PIN: {
+                            PORT: {
                                 type: ArgumentType.STRING,
                                 menu: 'digitalPins',
                                 defaultValue: Pins.D0
                             },
-                            CLINE: {
-                                type: ArgumentType.NUMBER,
-                                menu: 'color_s',
-                                defaultValue: Color_X.None
-                            }
-                        }
-                    },
-                    '---',   
-                    {
-                        opcode: 'eps32SIR',
-                        text: formatMessage({
-                            id: 'arduinokulbot.pins.eps32SIR',
-                            default: 'Sensor IR [PIN]',
-                            description: 'arduinokulbot read digital IR sensor'
-                        }),
-                        blockType: BlockType.BOOLEAN,
-                        arguments: {
-                            PIN: {
+                            COLOR: {
                                 type: ArgumentType.STRING,
-                                menu: 'digitalPins',
-                                defaultValue: Pins.D0
-                            }
-                        }
-                    },
-                    '---',     
-                    {
-                        opcode: 'eps32SLine',
-                        text: formatMessage({
-                            id: 'arduinokulbot.pins.eps32SLine',
-                            default: 'Line [PIN] with line [VLE]',
-                            description: 'arduinokulbot read digital IR sensor'
-                        }),
-                        blockType: BlockType.BOOLEAN,
-                        arguments: {
-                            PIN: {
-                                type: ArgumentType.STRING,
-                                menu: 'digitalPins',
-                                defaultValue: Pins.D0
-                            },
-                            VLE: {
-                                type: ArgumentType.STRING,
-                                menu: 'linecolor',
-                                defaultValue: Coline.CW
-                            },
-                        }
-                    },
-                    '---',            
-                    {
-                        opcode: 'eps32SIRLed',
-                        text: formatMessage({
-                            id: 'arduinokulbot.pins.eps32SIRLed',
-                            default: 'IRLED Port [PIN] Led [VLE] color [CLINE]',
-                            description: 'arduinokulbot set IR color pin out'
-                        }),
-                        blockType: BlockType.COMMAND,
-                        arguments: {
-                            PIN: {
-                                type: ArgumentType.STRING,
-                                menu: 'digitalPins',
-                                defaultValue: Pins.D0
-                            },
-                            VLE: {
-                                type: ArgumentType.NUMBER,
                                 menu: 'ircolor',
-                                defaultValue:  Level_IRcolor.Right
+                                defaultValue: Level_IRcolor.Right
                             },
-                            CLINE: {
-                                type: ArgumentType.NUMBER,
-                                menu: 'color_s',
-                                defaultValue: Color_X.None
-                            }
                         }
                     },
-                    '---',            
+                    '---',
                     {
-                        opcode: 'eps32traLED',
+                        opcode: 'esp32setTrafficLight',
                         text: formatMessage({
-                            id: 'arduinokulbot.pins.eps32traLED',
-                            default: 'Traffic Port [PIN] Color [VLE] statue [CLINE]',
-                            description: 'arduinokulbot set IR color pin out'
+                            id: 'arduinoSuny.pins.esp32setTrafficLight',
+                            default: 'Set Traffic Light: Port [PORT] Color [COLOR] Status [STATUS]',
+                            description: 'arduinoSuny print Number'
                         }),
                         blockType: BlockType.COMMAND,
                         arguments: {
-                            PIN: {
+                            PORT: {
                                 type: ArgumentType.STRING,
                                 menu: 'digitalPins',
                                 defaultValue: Pins.D0
                             },
-                            VLE: {
+                            COLOR: {
                                 type: ArgumentType.STRING,
                                 menu: 'trafficolor',
                                 defaultValue: Level_color.R
                             },
-                            CLINE: {
+                            STATUS: {
                                 type: ArgumentType.STRING,
                                 menu: 'trafficstatue',
                                 defaultValue: Level_statue.NONE
-                            }
+                            },
+                                                     
                         }
                     },
-                    '---',            
+                    '---',
                     {
-                        opcode: 'eps32SMotorM1',
+                        opcode: 'esp32OnAllLed',
                         text: formatMessage({
-                            id: 'arduinokulbot.pins.eps32SMotorM1',
-                            default: 'Motor [MO]  [MoFB] out [OUT]',
-                            description: 'arduinokulbot set motor pin out'
+                            id: 'arduinoSuny.pins.esp32OnAllLed',
+                            default: 'Turn On All Led: Color [COLOR]',
+                            description: 'arduinoSuny turn on all leds'
                         }),
                         blockType: BlockType.COMMAND,
                         arguments: {
-                            MO: {
+                            COLOR: {
                                 type: ArgumentType.STRING,
-                                menu: 'motorPins',
-                                defaultValue: Moption.M1
-                            },
-                            MoFB: {
-                                type: ArgumentType.STRING,
-                                menu: 'motorFB',
-                                defaultValue: MFB.M1
-                            },
-                            OUT: {
-                                type: ArgumentType.UINT8_NUMBER,
-                                defaultValue: '0'
+                                menu: 'color_s',
+                                defaultValue: Color_X.None
                             }
                         }
                     },
                     '---',
                     {
-                        opcode: 'eps32SServo',
+                        opcode: 'esp32OffLed',
                         text: formatMessage({
-                            id: 'arduinokulbot.pins.eps32SServo',
-                            default: 'Servo pin [PIN] out [OUT]',
-                            description: 'arduinokulbot set servo pin out'
+                            id: 'arduinoSuny.pins.esp32OffLed',
+                            default: 'Turn Off Led: Port [PORT]',
+                            description: 'arduinoSuny turn off leds'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            PORT: {
+                                type: ArgumentType.STRING,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.Port1
+                            }
+                        }
+                    },
+                    '---',
+                    {
+                        opcode: 'esp32OffAllLed',
+                        text: formatMessage({
+                            id: 'arduinoSuny.pins.esp32OffAllLed',
+                            default: 'Turn Off All Led',
+                            description: 'arduinoSuny turn off all leds'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            
+                        }
+                    },
+                    '---',
+                    {
+                        opcode: 'esp32ledOn',
+                        text: formatMessage({
+                            id: 'arduinoSuny.pins.esp32ledOn',
+                            default: 'Led On: Port [PIN] Color [COLOR]',
+                            description: 'arduinoSuny set LED at port'
                         }),
                         blockType: BlockType.COMMAND,
                         arguments: {
@@ -872,40 +886,99 @@ class OpenBlockArduinokulbotDevice {
                                 menu: 'digitalPins',
                                 defaultValue: Pins.Port1
                             },
-                            OUT: {
-                                type: ArgumentType.ANGLE,
-                                defaultValue: '90'
+                            COLOR: {
+                                type: ArgumentType.STRING,
+                                menu: 'color_s',
+                                defaultValue: Color_X.None
                             }
                         }
                     },
-
+                    '---',
                     {
-                        opcode: 'eps32SMotorM1H',
+                        opcode: 'eps32SLight',
                         text: formatMessage({
-                            id: 'arduinokulbot.pins.eps32SMotorM1H',
-                            default: 'MotorH [MO]  [MoFB] out [OUT]',
-                            description: 'arduinokulbot set motor pin out'
+                            id: 'arduinoSuny.pins.eps32SLight',
+                            default: 'Get Light: Port [PIN]',
+                            description: 'arduinoSuny read Light sensor'
                         }),
-                        blockType: BlockType.COMMAND,
+                        blockType: BlockType.REPORTER,
                         arguments: {
-                            MO: {
+                            PIN: {
                                 type: ArgumentType.STRING,
-                                menu: 'motorPins',
-                                defaultValue: Moption.M1
-                            },
-                            MoFB: {
-                                type: ArgumentType.STRING,
-                                menu: 'motorFB',
-                                defaultValue: MFB.M1
-                            },
-                            OUT: {
-                                type: ArgumentType.STRING,
-                                defaultValue: '0'
+                                menu: 'digitalPins',
+                                defaultValue: Pins.Port1
                             }
                         }
-                    }
+                    },
+                    '---',
+                    {
+                        opcode: 'eps32GetJoystick',
+                        text: formatMessage({
+                            id: 'arduinoSuny.pins.eps32GetJoystick',
+                            default: 'Get Joystick: Port [PORT] type [TYPE]',
+                            description: 'arduinoSuny read Joystick sensor'
+                        }),
+                        blockType: BlockType.REPORTER,
+                        arguments: {
+                            PORT: {
+                                type: ArgumentType.STRING,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.Port1
+                            },
+                            TYPE: {
+                                type: ArgumentType.STRING,
+                                menu: 'joystick_menu',
+                                defaultValue: MFB.MF
+                            }
+                        }
+                    },
+                    '---',
+                    {
+                        opcode: 'eps32Volume',
+                        text: formatMessage({
+                            id: 'arduinoSuny.pins.eps32Volume',
+                            default: 'Get Volume: Port [PIN]',
+                            description: 'arduinoSuny read Volume sensor'
+                        }),
+                        blockType: BlockType.REPORTER,
+                        arguments: {
+                            PIN: {
+                                type: ArgumentType.STRING,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.Port1
+                            }
+                        }
+                    },  
+                    '---',  
+                    {
+                        opcode: 'eps32ButtonLed',
+                        text: formatMessage({
+                            id: 'arduinoSuny.pins.eps32ButtonLed',
+                            default: 'Get Button Led: Port [PIN] Button [BUTTON]',
+                            description: 'arduinoSuny read digital IR sensor'
+                        }),
+                        blockType: BlockType.BOOLEAN,
+                        arguments: {
+                            PIN: {
+                                type: ArgumentType.STRING,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.D0
+                            },
+                            BUTTON: {
+                                type: ArgumentType.STRING,
+                                menu: 'location',
+                                defaultValue: location.Left
+                            }
+                        }
+                    },   
                 ],
                 menus: {
+                    button_led: {
+                        items: this.Button_Color
+                    },
+                    Gryro: {
+                        items: this.GRYRO_MENU
+                    },
                     pins: {
                         items: this.PINS_MENU
                     },
@@ -943,6 +1016,483 @@ class OpenBlockArduinokulbotDevice {
                     color_s: {
                         items: this.CoLor_X
                     },
+                    location: {
+                        items: this.Location
+                    },
+                    joystick_menu: {
+                        items: this.JOYSTICK_MENU
+                    },
+                }
+            },
+            {
+                id: 'display',
+                name: formatMessage({
+                    id: 'arduinoSuny.category.display',
+                    default: 'Display',
+                    description: 'The name of the arduino Suny device Display category'
+                }),
+                color1: '#B99095',
+                color2: '#9966FF',
+                color3: '#9966FF',
+
+                blocks: [  
+                    '---',
+                    {
+                        opcode: 'esp32lcdNumber',
+                        text: formatMessage({
+                            id: 'arduinoSuny.display.esp32lcdNumber',
+                            default: 'LCD Print Number: Port [PORT] Column [COL] Cell [CEL] Number [NUMBER]',
+                            description: 'arduinoSuny print Number'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            PORT: {
+                                type: ArgumentType.NUMBER,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.D0
+                            },
+                            COL: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            CEL: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            NUMBER: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },                          
+                        }
+                    },
+                    '---',
+                    {
+                        opcode: 'esp32lcdString',
+                        text: formatMessage({
+                            id: 'arduinoSuny.display.esp32lcdString',
+                            default: 'LCD Print String: Port [PORT] Column [COL] Cell [CEL] String [DATA]',
+                            description: 'arduinoSuny print string'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            PORT: {
+                                type: ArgumentType.STRING,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.D0
+                            },
+                            COL: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            CEL: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            DATA: {
+                                type: ArgumentType.STRING,
+                                defaultValue: 'Hello!!!'
+                            },                          
+                        }
+                    },
+                    '---',
+                    {
+                        opcode: 'esp32lcdClear',
+                        text: formatMessage({
+                            id: 'arduinoSuny.display.esp32lcdClear',
+                            default: 'LCD Clear: Port [PORT]',
+                            description: 'arduinoSuny LCD Clear'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            PORT: {
+                                type: ArgumentType.NUMBER,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.D0
+                            }
+                                                 
+                        }
+                    },
+                ],
+                menus: {
+                    button_led: {
+                        items: this.Button_Color
+                    },
+                    Gryro: {
+                        items: this.GRYRO_MENU
+                    },
+                    pins: {
+                        items: this.PINS_MENU
+                    },
+                    mode: {
+                        items: this.MODE_MENU
+                    },
+                    digitalPins: {
+                        items: this.DIGITAL_PINS_MENU
+                    },
+                    level: {
+                        acceptReporters: true,
+                        items: this.LEVEL_MENU
+                    },
+                    motorPins: {
+                        items: this.LEVEL_Moption
+                    },
+                    motorFB: {
+                        items: this.LEVEL_MFB
+                    },
+                    linecolor: {
+                        items: this.LEVEL_Linecolor
+                    },
+                    trafficstatue: {
+                        items: this.LEVEL_STATUE
+                    },                    
+                    trafficolor: {
+                        items: this.LEVEL_COLOR
+                    },
+                    ircolor: {
+                        items: this.LEVEL_IRCOLOR
+                    },
+                    dht11mode: {
+                        items: this.LEVEL_DHT11
+                    },
+                    color_s: {
+                        items: this.CoLor_X
+                    },
+                    location: {
+                        items: this.Location
+                    },
+                    joystick_menu: {
+                        items: this.JOYSTICK_MENU
+                    },
+                }
+            },
+            {
+                id: 'motor',
+                name: formatMessage({
+                    id: 'arduinoSuny.category.motors',
+                    default: 'Motions',
+                    description: 'The name of the arduino Suny device serial category'
+                }),
+                color1: '#7CF3A0',
+                color2: '#9966FF',
+                color3: '#9966FF',
+
+                blocks: [  
+                    '---',
+                    //         
+                             
+                    {
+                        opcode: 'eps32SMotorM1',
+                        text: formatMessage({
+                            id: 'arduinoSuny.motors.eps32SMotorM1',
+                            default: 'Motor1: Port [MO] [MoFB] out [OUT]',
+                            description: 'arduinoSuny set motor pin out'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            MO: {
+                                type: ArgumentType.STRING,
+                                menu: 'motorPins',
+                                defaultValue: Moption.M1
+                            },
+                            MoFB: {
+                                type: ArgumentType.STRING,
+                                menu: 'motorFB',
+                                defaultValue: MFB.M1
+                            },
+                            OUT: {
+                                type: ArgumentType.UINT8_NUMBER,
+                                defaultValue: '0'
+                            }
+                        }
+                    },
+                    '---',
+                    {
+                        opcode: 'eps32SServo',
+                        text: formatMessage({
+                            id: 'arduinoSuny.motors.eps32SServo',
+                            default: 'Servo: Port [PIN] out [OUT]',
+                            description: 'arduinoSuny set servo pin out'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            PIN: {
+                                type: ArgumentType.STRING,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.Port1
+                            },
+                            OUT: {
+                                type: ArgumentType.ANGLE,
+                                defaultValue: '90'
+                            }
+                        }
+                    }
+
+                ],
+                 menus: {
+                    button_led: {
+                        items: this.Button_Color
+                    },
+                    Gryro: {
+                        items: this.GRYRO_MENU
+                    },
+                    pins: {
+                        items: this.PINS_MENU
+                    },
+                    mode: {
+                        items: this.MODE_MENU
+                    },
+                    digitalPins: {
+                        items: this.DIGITAL_PINS_MENU
+                    },
+                    level: {
+                        acceptReporters: true,
+                        items: this.LEVEL_MENU
+                    },
+                    motorPins: {
+                        items: this.LEVEL_Moption
+                    },
+                    motorFB: {
+                        items: this.LEVEL_MFB
+                    },
+                    linecolor: {
+                        items: this.LEVEL_Linecolor
+                    },
+                    trafficstatue: {
+                        items: this.LEVEL_STATUE
+                    },                    
+                    trafficolor: {
+                        items: this.LEVEL_COLOR
+                    },
+                    ircolor: {
+                        items: this.LEVEL_IRCOLOR
+                    },
+                    dht11mode: {
+                        items: this.LEVEL_DHT11
+                    },
+                    color_s: {
+                        items: this.CoLor_X
+                    },
+                    location: {
+                        items: this.Location
+                    },
+                    joystick_menu: {
+                        items: this.JOYSTICK_MENU
+                    },
+                }
+            },
+            {
+                id: 'sensor',
+                name: formatMessage({
+                    id: 'arduinoSuny.category.sensor',
+                    default: 'Sensor',
+                    description: 'The name of the arduino Suny device serial category'
+                }),
+                color1: '#148F77',
+                color2: '#9966FF',
+                color3: '#9966FF',
+
+                blocks: [   
+                    {
+         
+                        opcode: 'eps32SUltra',
+                        text: formatMessage({
+                            id: 'arduinoSuny.sensor.eps32SUltra',
+                            default: 'Unltrasonic [PIN] (cm)',
+                            description: 'arduinoSuny read ultrasonic sensor'
+                        }),
+                        blockType: BlockType.REPORTER,
+                        arguments: {
+                            PIN: {
+                                type: ArgumentType.STRING,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.Port1
+                            }
+                        }
+                    },
+                    '---',
+                    {
+                        opcode: 'eps32SLine',
+                        text: formatMessage({
+                            id: 'arduinoSuny.sensor.eps32SLine',
+                            default: 'Get Line: Port [PIN] with line [VLE]',
+                            description: 'arduinoSuny read digital IR sensor'
+                        }),
+                        blockType: BlockType.BOOLEAN,
+                        arguments: {
+                            PIN: {
+                                type: ArgumentType.STRING,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.D0
+                            },
+                            VLE: {
+                                type: ArgumentType.STRING,
+                                menu: 'linecolor',
+                                defaultValue: Coline.CW
+                            },
+                        }
+                    },
+                    '---',  
+                    {
+                        opcode: 'eps32SIR',
+                        text: formatMessage({
+                            id: 'arduinoSuny.sensor.eps32SIR',
+                            default: 'Get Sensor IR: Port[PIN]',
+                            description: 'arduinoSuny read digital IR sensor'
+                        }),
+                        blockType: BlockType.BOOLEAN,
+                        arguments: {
+                            PIN: {
+                                type: ArgumentType.STRING,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.D0
+                            }
+                        }
+                    },
+                    '---',
+                    {
+                        opcode: 'eps32STemp',
+                        text: formatMessage({
+                            id: 'arduinoSuny.sensor.eps32STemp',
+                            default: 'Get Temperature: Port [PIN] (°C)',
+                            description: 'arduinoSuny read Temperature sensor'
+                        }),
+                        blockType: BlockType.REPORTER,
+                        arguments: {
+                            PIN: {
+                                type: ArgumentType.STRING,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.Port1
+                            }
+                        }
+                    },
+                    '---',
+                    {
+                        opcode: 'eps32GetSoilHum',
+                        text: formatMessage({
+                            id: 'arduinoSuny.sensor.eps32GetSoilHum',
+                            default: 'Get Soil Hum: Port [PORT]',
+                            description: 'arduinoSuny read Soil Hum sensor'
+                        }),
+                        blockType: BlockType.REPORTER,
+                        arguments: {
+                            PORT: {
+                                type: ArgumentType.STRING,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.Port1
+                            }
+                        }
+                    },
+
+                    '---',
+                    {
+                        opcode: 'eps32GetGas',
+                        text: formatMessage({
+                            id: 'arduinoSuny.sensor.eps32GetGas',
+                            default: 'Get Gas: Port [PORT]',
+                            description: 'arduinoSuny read Gas sensor'
+                        }),
+                        blockType: BlockType.REPORTER,
+                        arguments: {
+                            PORT: {
+                                type: ArgumentType.STRING,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.Port1
+                            }
+                        }
+                    },
+                    '---', 
+                    {
+                        opcode: 'eps32STouch',
+                        text: formatMessage({
+                            id: 'arduinoSuny.sensor.eps32STouch',
+                            default: 'Get Touch: Port [PIN]',
+                            description: 'arduinoSuny read digital touch sensor'
+                        }),
+                        blockType: BlockType.BOOLEAN,
+                        arguments: {
+                            PIN: {
+                                type: ArgumentType.STRING,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.D0
+                            }
+                        }
+                    },
+                    '---',
+                    {
+                        opcode: 'eps32SGryro',
+                        text: formatMessage({
+                            id: 'arduinoSuny.sensor.eps32SGryro',
+                            default: 'Get Gryro: Port [PORT] Data [DATA]',
+                            description: 'arduinoSuny read Gryro sensor'
+                        }),
+                        blockType: BlockType.REPORTER,
+                        arguments: {
+                            PORT: {
+                                type: ArgumentType.STRING,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.Port1
+                            },
+                            DATA: {
+                                type: ArgumentType.STRING,
+                                menu: 'Gryro',
+                                defaultValue: Gryro.g1
+                            }
+                        }
+                    },
+                    '---',
+                    {
+                        opcode: 'eps32SHum',
+                        text: formatMessage({
+                            id: 'arduinoSuny.sensor.eps32SHum',
+                            default: 'Get Hum Port [PORT]',
+                            description: 'arduinoSuny read Hum sensor'
+                        }),
+                        blockType: BlockType.REPORTER,
+                        arguments: {
+                            PORT: {
+                                type: ArgumentType.STRING,
+                                menu: 'digitalPins',
+                                defaultValue: Pins.Port1
+                            }
+                        }
+                    },
+                    
+                ],
+                menus: {
+                    Gryro: {
+                        items: this.GRYRO_MENU
+                    },
+                    pins: {
+                        items: this.PINS_MENU
+                    },
+                    mode: {
+                        items: this.MODE_MENU
+                    },
+                    digitalPins: {
+                        items: this.DIGITAL_PINS_MENU
+                    },
+                    level: {
+                        acceptReporters: true,
+                        items: this.LEVEL_MENU
+                    },
+                    linecolor: {
+                        items: this.LEVEL_Linecolor
+                    },
+                    ircolor: {
+                        items: this.LEVEL_IRCOLOR
+                    },
+                    dht11mode: {
+                        items: this.LEVEL_DHT11
+                    },
+                    color_s: {
+                        items: this.CoLor_X
+                    },
+                    location: {
+                        items: this.Location
+                    },
+                    joystick_menu: {
+                        items: this.JOYSTICK_MENU
+                    },
                 }
             },
             {
@@ -950,7 +1500,7 @@ class OpenBlockArduinokulbotDevice {
                 name: formatMessage({
                     id: 'arduinoUno.category.serial',
                     default: 'Serial',
-                    description: 'The name of the arduino kulbot device serial category'
+                    description: 'The name of the arduino Suny device serial category'
                 }),
                 color1: '#9966FF',
                 color2: '#774DCB',
@@ -960,15 +1510,15 @@ class OpenBlockArduinokulbotDevice {
                     {
                         opcode: 'esp32serialPrint',
                         text: formatMessage({
-                            id: 'arduinokulbot.serial.esp32serialPrint',
-                            default: 'serial print [VALUE] [EOL]',
-                            description: 'arduinokulbot serial print'
+                            id: 'arduinoSuny.serial.esp32serialPrint',
+                            default: 'Serial Print [VALUE] [EOL]',
+                            description: 'arduinoSuny serial print'
                         }),
                         blockType: BlockType.COMMAND,
                         arguments: {
                             VALUE: {
                                 type: ArgumentType.STRING,
-                                defaultValue: 'Hello OpenBlock'
+                                defaultValue: 'Hello Suny'
                             },
                             EOL: {
                                 type: ArgumentType.STRING,
@@ -978,22 +1528,24 @@ class OpenBlockArduinokulbotDevice {
                         },
                         programMode: [ProgramModeType.UPLOAD]
                     },
+                    '---',
                     {
                         opcode: 'esp32serialAvailable',
                         text: formatMessage({
-                            id: 'arduinokulbot.serial.esp32serialAvailable',
-                            default: 'serial available data length',
+                            id: 'arduinoSuny.serial.esp32serialAvailable',
+                            default: 'Serial Available Data Length',
                             description: 'arduinoUno serial available data length'
                         }),
                         blockType: BlockType.REPORTER,
                         disableMonitor: true,
                         programMode: [ProgramModeType.UPLOAD]
                     },
+                    '---',
                     {
                         opcode: 'esp32serialReadData',
                         text: formatMessage({
                             id: 'arduinoUno.serial.esp32serialReadData',
-                            default: 'serial read data',
+                            default: 'Serial Read Data',
                             description: 'arduinoUno serial read data'
                         }),
                         blockType: BlockType.REPORTER,
@@ -1025,7 +1577,7 @@ class OpenBlockArduinokulbotDevice {
                         opcode: 'esp32dataMap',
                         text: formatMessage({
                             id: 'arduinoUno.data.esp32dataMap',
-                            default: 'map [DATA] from ([ARG0], [ARG1]) to ([ARG2], [ARG3])',
+                            default: 'Map [DATA] From ([ARG0], [ARG1]) to ([ARG2], [ARG3])',
                             description: 'arduinoUno data map'
                         }),
                         blockType: BlockType.REPORTER,
@@ -1058,7 +1610,7 @@ class OpenBlockArduinokulbotDevice {
                         opcode: 'esp32dataConstrain',
                         text: formatMessage({
                             id: 'arduinoUno.data.esp32dataConstrain',
-                            default: 'constrain [DATA] between ([ARG0], [ARG1])',
+                            default: 'Constrain [DATA] Between ([ARG0], [ARG1])',
                             description: 'arduinoUno data constrain'
                         }),
                         blockType: BlockType.REPORTER,
@@ -1078,11 +1630,12 @@ class OpenBlockArduinokulbotDevice {
                         },
                         programMode: [ProgramModeType.UPLOAD]
                     },
+                    '---',
                     {
                         opcode: 'esp32dataConvert',
                         text: formatMessage({
                             id: 'arduinoUno.data.esp32dataConvert',
-                            default: 'convert [DATA] to [TYPE]',
+                            default: 'Convert [DATA] to [TYPE]',
                             description: 'arduinoUno data convert'
                         }),
                         blockType: BlockType.REPORTER,
@@ -1099,11 +1652,12 @@ class OpenBlockArduinokulbotDevice {
                         },
                         programMode: [ProgramModeType.UPLOAD]
                     },
+                    '---',
                     {
                         opcode: 'esp32dataConvertASCIICharacter',
                         text: formatMessage({
                             id: 'arduinoUno.data.esp32dataConvertASCIICharacter',
-                            default: 'convert [DATA] to ASCII character',
+                            default: 'Convert [DATA] to ASCII character',
                             description: 'arduinoUno data convert to ASCII character'
                         }),
                         blockType: BlockType.REPORTER,
@@ -1115,11 +1669,12 @@ class OpenBlockArduinokulbotDevice {
                         },
                         programMode: [ProgramModeType.UPLOAD]
                     },
+                    '---',
                     {
                         opcode: 'esp32dataConvertASCIINumber',
                         text: formatMessage({
                             id: 'arduinoUno.data.esp32dataConvertASCIINumber',
-                            default: 'convert [DATA] to ASCII nubmer',
+                            default: 'Convert [DATA] to ASCII nubmer',
                             description: 'arduinoUno data convert to ASCII nubmer'
                         }),
                         blockType: BlockType.REPORTER,
@@ -1130,9 +1685,7 @@ class OpenBlockArduinokulbotDevice {
                             }
                         },
                         programMode: [ProgramModeType.UPLOAD]
-                    },
-
-                    
+                    }
                 ],
                 menus: {
                     dataType: {
@@ -1164,6 +1717,16 @@ class OpenBlockArduinokulbotDevice {
     }
 
     /**
+         * Set pin mode.
+         * @param {object} args - the block's arguments.
+         * @return {Promise} - a Promise that resolves after the return Temperature mode is done.
+         */
+     eps32GetSonarSensor (args) {
+        this._peripheral.eps32GetSonarSensor(args.PIN);
+        return Promise.resolve();
+    }
+
+    /**
      * Set pin mode.
      * @param {object} args - the block's arguments.
      * @return {Promise} - a Promise that resolves after the return Temperature mode is done.
@@ -1172,17 +1735,6 @@ class OpenBlockArduinokulbotDevice {
         this._peripheral.eps32STemp(args.PIN);
         return Promise.resolve();
     }
-
-    /**
-     * Set pin mode.
-     * @param {object} args - the block's arguments.
-     * @return {Promise} - a Promise that resolves after the return DHT11 mode is done.
-     */
-     eps32SDHT11 (args) {
-            this._peripheral.eps32SDHT11(args.PIN, args.FUN);
-            return Promise.resolve();
-        }
-    
 
     /**
      * Read touch sensor digital level.
@@ -1218,20 +1770,171 @@ class OpenBlockArduinokulbotDevice {
      * @param {object} args - the block's arguments.
      * @return {Promise} - a Promise that resolves after the set Led out value is done.
      */
-    esp32ledOnOF (args) {
-        this._peripheral.esp32ledOnOF(args.OUT);
+     esp32ledOn (args) {
+        this._peripheral.esp32ledOn(args.PIN, args.COLOR);
         return Promise.resolve();
     }
 
     /**
-     * Set motor out value.
+     * Set servo out put.
      * @param {object} args - the block's arguments.
-     * @return {Promise} - a Promise that resolves after the set motor value is done.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
      */
-    eps32SMotorM1H (args) {
-        this._peripheral.eps32SMotorM1H(args.MO, args.MoFB, args.OUT);
+     esp32OnAllLed (args) {
+        this._peripheral.esp32OnAllLed(args.PIN, args.COLOR);
+        return Promise.resolve();
+    }
+
+    /**
+     * Set servo out put.
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+     esp32OffAllLed (args) {
+        this._peripheral.esp32OffAllLed(args.PIN, args.COLOR);
+        return Promise.resolve();
+    }
+
+
+    /**
+     * Print String on LCD
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+     esp32lcdString (args) {
+        this._peripheral.esp32lcdString(args.PORT, args.COL, args.CEL, args.DATA);
+        return Promise.resolve();
+    }
+
+    /**
+     * Print String on LCD
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+     esp32lcdNumber (args) {
+        this._peripheral.esp32lcdNumber(args.PORT, args.COL, args.CEL, args.NUMBER);
+        return Promise.resolve();
+    }
+
+    /**
+     * Print String on LCD
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+     esp32setTrafficLight (args) {
+        this._peripheral.esp32setTrafficLight(args.PORT, args.COLOR, args.STATUS);
+        return Promise.resolve();
+    }
+
+    /**
+     * Print String on LCD
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+     eps32SLight (args) {
+        this._peripheral.eps32SLight(args.PORT);
+        return Promise.resolve();
+    }
+
+    /**
+     * Print String on LCD
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+     eps32Volume (args) {
+        this._peripheral.eps32Volume(args.PORT);
+        return Promise.resolve();
+    }
+
+    /**
+     * Print String on LCD
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+     esp32setIRLed (args) {
+        this._peripheral.esp32setIRLed(args.PORT, args.COLOR);
+        return Promise.resolve();
+    }
+
+    /**
+     * Initialize Gas Sensor
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+     eps32SHum (args) {
+        this._peripheral.eps32SHum(args.PORT);
+        return Promise.resolve();
+    }
+
+    /**
+     * Initialize Gryro Sensor
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+     eps32SGryro (args) {
+        this._peripheral.eps32SGryro(args.PORT, args.DATA);
+        return Promise.resolve();
+    }
+
+    /**
+     * Initialize Gryro Sensor
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+     eps32GetSoilHum (args) {
+        this._peripheral.eps32GetSoilHum(args.PORT);
+        return Promise.resolve();
+    }
+
+    /**
+     * Initialize Gryro Sensor
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+     eps32GetGas (args) {
+        this._peripheral.eps32GetGas(args.PORT);
+        return Promise.resolve();
+    }
+
+    /**
+     * Initialize Joystick Sensor
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+     eps32GetJoystick (args) {
+        this._peripheral.eps32GetJoystick(args.PORT, args.TYPE);
+        return Promise.resolve();
+    }
+
+    /**
+     * Initialize set Button Led
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+     esp32setButtonLed (args) {
+        this._peripheral.esp32setButtonLed(args.PORT, args.COLOR);
+        return Promise.resolve();
+    }
+
+    /**
+     * LCD Clear
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+     esp32lcdClear (args) {
+        this._peripheral.esp32lcdClear(args.PORT);
+        return Promise.resolve();
+    }
+
+    /**
+     * LCD Clear
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+     esp32OffLed (args) {
+        this._peripheral.esp32OffLed(args.PORT);
         return Promise.resolve();
     }
 }
 
-module.exports = OpenBlockArduinokulbotDevice;
+module.exports = SunyArduinoSunyDevice;
