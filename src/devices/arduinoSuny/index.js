@@ -1166,7 +1166,7 @@ class SunyArduinoSunyDevice {
                 }
             },
             {
-                id: 'motor',
+                id: 'motors',
                 name: formatMessage({
                     id: 'arduinoSuny.category.motors',
                     default: 'Motions',
