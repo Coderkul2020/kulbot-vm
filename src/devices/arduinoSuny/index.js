@@ -1692,7 +1692,101 @@ class SunyArduinoSunyDevice {
                         items: this.DATA_TYPE_MENU
                     }
                 }
+            },
+            {
+                id: 'bluetooth',
+                name: formatMessage({
+                    id: 'arduinoUno.category.bluetooth',
+                    default: 'Bluetooth',
+                    description: 'The name of the arduino uno device bluetooth category'
+                }),
+                color1: '#CC0000',
+                color2: '#C94FC9',
+                color3: '#BD42BD',
+                blocks: [
+                    {
+                        opcode: 'setupbluetooth',
+                        text: formatMessage({
+                            id: 'arduinoSuny.bluetooth.setupbluetooth',
+                            default: 'Initialize Bluetooth: Name [NAME]',
+                            description: 'arduinoSuny read digital touch sensor'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            NAME: {
+                                type: ArgumentType.STRING,
+                                defaultValue: 'Bluetooth name'
+                            }
+                        }
+                    },
+                    {
+                        opcode: 'bluetoothAvailable',
+                        text: formatMessage({
+                            id: 'arduinoSuny.bluetooth.bluetoothAvailable',
+                            default: 'Bluetooth Available',
+                            description: 'arduinoSuny read digital bluetooth Available'
+                        }),
+                        blockType: BlockType.REPORTER,
+                        arguments: {
+
+                        },
+                        disableMonitor: true,
+                        programMode: [ProgramModeType.UPLOAD]
+                    },
+                    {
+                        opcode: 'bluetoothRead',
+                        text: formatMessage({
+                            id: 'arduinoSuny.bluetooth.bluetoothRead',
+                            default: 'Bluetooth Read',
+                            description: 'arduinoSuny read digital bluetooth Read'
+                        }),
+                        blockType: BlockType.REPORTER,
+                        arguments: {
+
+                        },
+                        disableMonitor: true,
+                        programMode: [ProgramModeType.UPLOAD]
+                    }
+                    
+                ],
+                menus: {
+                    Gryro: {
+                        items: this.GRYRO_MENU
+                    },
+                    pins: {
+                        items: this.PINS_MENU
+                    },
+                    mode: {
+                        items: this.MODE_MENU
+                    },
+                    digitalPins: {
+                        items: this.DIGITAL_PINS_MENU
+                    },
+                    level: {
+                        acceptReporters: true,
+                        items: this.LEVEL_MENU
+                    },
+                    linecolor: {
+                        items: this.LEVEL_Linecolor
+                    },
+                    ircolor: {
+                        items: this.LEVEL_IRCOLOR
+                    },
+                    dht11mode: {
+                        items: this.LEVEL_DHT11
+                    },
+                    color_s: {
+                        items: this.CoLor_X
+                    },
+                    location: {
+                        items: this.Location
+                    },
+                    joystick_menu: {
+                        items: this.JOYSTICK_MENU
+                    },
+                }
             }
+            
         ];
     }
 
@@ -1933,6 +2027,36 @@ class SunyArduinoSunyDevice {
      */
      esp32OffLed (args) {
         this._peripheral.esp32OffLed(args.PORT);
+        return Promise.resolve();
+    }
+
+    /**
+     * Bluetooth Initialize
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+    setupbluetooth (args) {
+        this._peripheral.setupbluetooth(args.NAME);
+        return Promise.resolve();
+    }
+
+    /**
+     * Bluetooth Available
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+    bluetoothAvailable () {
+        this._peripheral.bluetoothAvailable();
+        return Promise.resolve();
+    }
+
+    /**
+     * Bluetooth Available
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+    bluetoothRead () {
+        this._peripheral.bluetoothRead();
         return Promise.resolve();
     }
 }
