@@ -128,8 +128,8 @@ const Coline = {
 
 // Choice Motor1, Moter 2
 const Moption = {
-    M1: '1',
-    M2: '2'
+    M1: '0',
+    M2: '1'
 };
 const Buadrate = {
     B4800: '4800',
@@ -741,6 +741,76 @@ class SunyArduinoSunyDevice {
      */
     getInfo () {
         return [
+            {
+                id: 'variable',
+                name: formatMessage({
+                    id: 'arduinoSuny.category.variable',
+                    default: 'Variables',
+                    description: 'The name of the arduino uno device pin category'
+                }),
+                color1: '#B3B3FF',
+                color2: '#3373CC',
+                color3: '#3373CC',
+
+                blocks: [
+                    {
+                        opcode: 'createvarchar',
+                        text: formatMessage({
+                            id: 'arduinoSuny.variable.createvarchar',
+                            default: 'Create A Char: Name [NAME] Char [CHAR]',
+                            description: 'arduinoSuny create char variable'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            NAME: {
+                                type: ArgumentType.STRING,
+                                defaultValue: 'c'
+                            },
+                            CHAR: {
+                                type: ArgumentType.STRING,
+                                defaultValue: 'NULL'
+                            },
+                        }
+                    }, 
+                    {
+                        opcode: 'setvarchar',
+                        text: formatMessage({
+                            id: 'arduinoSuny.variable.setvarchar',
+                            default: 'Set Char Variable [NAME] Character [CHAR]',
+                            description: 'arduinoSuny set char variable'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            NAME: {
+                                type: ArgumentType.STRING,
+                                defaultValue: 'c'
+                            },
+                            CHAR: {
+                                type: ArgumentType.STRING,
+                                defaultValue: 'NULL'
+                            },
+                        }
+                    },
+                    {
+                        opcode: 'getvarchar',
+                        text: formatMessage({
+                            id: 'arduinoSuny.variable.getvarchar',
+                            default: 'Get Char [NAME]',
+                            description: 'arduinoSuny get char value'
+                        }),
+                        blockType: BlockType.REPORTER,
+                        arguments: {
+                            NAME: {
+                                type: ArgumentType.STRING,
+                                defaultValue: ' '
+                            },
+                        }
+                    },
+                ],
+                menus: {
+                    
+                }
+            },
             {
                 id: 'pin',
                 name: formatMessage({
@@ -1726,9 +1796,8 @@ class SunyArduinoSunyDevice {
                             default: 'Bluetooth Available',
                             description: 'arduinoSuny read digital bluetooth Available'
                         }),
-                        blockType: BlockType.REPORTER,
+                        blockType: BlockType.BOOLEAN,
                         arguments: {
-
                         },
                         disableMonitor: true,
                         programMode: [ProgramModeType.UPLOAD]
@@ -2057,6 +2126,35 @@ class SunyArduinoSunyDevice {
      */
     bluetoothRead () {
         this._peripheral.bluetoothRead();
+        return Promise.resolve();
+    }
+
+    /**
+     * Bluetooth Available
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+    createvarchar (args) {
+        this._peripheral.createvarchar(args.NAME, args.CHAR);
+        return Promise.resolve();
+    }
+
+    /**
+     * Bluetooth Available
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+    setvarchar (args) {
+        this._peripheral.setvarchar(args.NAME, args.CHAR);
+        return Promise.resolve();
+    }
+    /**
+     * Bluetooth Available
+     * @param {object} args - the block's arguments.
+     * @return {Promise} - a Promise that resolves after the set Led out value is done.
+     */
+    getvarchar (args) {
+        this._peripheral.getvarchar(args.NAME);
         return Promise.resolve();
     }
 }
