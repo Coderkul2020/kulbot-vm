@@ -720,6 +720,23 @@ class SunyArduinoSunyDevice {
         ];
     }
 
+    get Type_Var(){
+        return [
+            {
+                text: 'Character',
+                value: 'char'
+            },
+            {
+                text: 'Float',
+                value: 'float'
+            },
+            {
+                text: 'Integer',
+                value: 'int'
+            }
+        ];
+    }
+
     /**
      * Construct a set of Arduino blocks.
      * @param {Runtime} runtime - the Suny runtime.
@@ -754,29 +771,30 @@ class SunyArduinoSunyDevice {
 
                 blocks: [
                     {
-                        opcode: 'createvarchar',
+                        opcode: 'createvar',
                         text: formatMessage({
-                            id: 'arduinoSuny.variable.createvarchar',
-                            default: 'Create A Char: Name [NAME] Char [CHAR]',
+                            id: 'arduinoSuny.variable.createvar',
+                            default: 'Create A Variable: Type [TYPE]: Name [NAME]',
                             description: 'arduinoSuny create char variable'
                         }),
                         blockType: BlockType.COMMAND,
                         arguments: {
+                            TYPE: {
+                                type: ArgumentType.STRING,
+                                menu: 'type_var',
+                                defaultValue: 'char'
+                            },
                             NAME: {
                                 type: ArgumentType.STRING,
-                                defaultValue: 'c'
-                            },
-                            CHAR: {
-                                type: ArgumentType.STRING,
-                                defaultValue: 'NULL'
+                                defaultValue: 'a'
                             },
                         }
                     }, 
                     {
-                        opcode: 'setvarchar',
+                        opcode: 'setvar',
                         text: formatMessage({
-                            id: 'arduinoSuny.variable.setvarchar',
-                            default: 'Set Char Variable [NAME] Character [CHAR]',
+                            id: 'arduinoSuny.variable.setvar',
+                            default: 'Set Value Variable: [NAME] Value [VALUE]',
                             description: 'arduinoSuny set char variable'
                         }),
                         blockType: BlockType.COMMAND,
@@ -785,16 +803,16 @@ class SunyArduinoSunyDevice {
                                 type: ArgumentType.STRING,
                                 defaultValue: 'c'
                             },
-                            CHAR: {
+                            VALUE: {
                                 type: ArgumentType.STRING,
                                 defaultValue: 'NULL'
                             },
                         }
                     },
                     {
-                        opcode: 'getvarchar',
+                        opcode: 'getvar',
                         text: formatMessage({
-                            id: 'arduinoSuny.variable.getvarchar',
+                            id: 'arduinoSuny.variable.getvar',
                             default: 'Get Char [NAME]',
                             description: 'arduinoSuny get char value'
                         }),
@@ -808,7 +826,9 @@ class SunyArduinoSunyDevice {
                     },
                 ],
                 menus: {
-                    
+                    type_var: {
+                        items: this.Type_Var
+                    }
                 }
             },
             {
@@ -1270,7 +1290,7 @@ class SunyArduinoSunyDevice {
                                 defaultValue: MFB.M1
                             },
                             OUT: {
-                                type: ArgumentType.UINT8_NUMBER,
+                                type: ArgumentType.NUMBER,
                                 defaultValue: '0'
                             }
                         }
